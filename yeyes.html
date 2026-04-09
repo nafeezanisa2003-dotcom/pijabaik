@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday! 🎂</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --pink: #ff9a9e;
+      --pink-light: #fad0c4;
+      --pink-dark: #fecfef;
+      --cream: #fff5f5;
+      --gold: #ffd700;
+      --white: #ffffff;
+      --text-dark: #5a4a4a;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff5f5 0%, #fecfef 50%, #fad0c4 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .hearts-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0.6;
+      animation: floatHeart 8s ease-in-out infinite;
+    }
+
+    @keyframes floatHeart {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(-100px) rotate(10deg);
+        opacity: 0.2;
+      }
+    }
+
+    .confetti-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0.8;
+      animation: confettiFall 4s ease-in-out infinite;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+    }
+
+    .title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(3rem, 10vw, 6rem);
+      color: #ff6b8b;
+      text-shadow: 3px 3px 0 #fff, 4px 4px 10px rgba(255, 107, 139, 0.3);
+      animation: bounceIn 1s ease-out;
+      margin-bottom: 20px;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        transform: scale(0.3);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .subtitle {
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      color: #8a6a6a;
+      animation: fadeInUp 1s ease-out 0.5s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .cake-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      animation: fadeInUp 1s ease-out 0.8s both;
+    }
+
+    .cake {
+      position: relative;
+      width: 200px;
+      height: 150px;
+    }
+
+    .cake-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: 80px;
+      background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 100%);
+      border-radius: 10px 10px 30px 30px;
+      box-shadow: 0 10px 30px rgba(255, 154, 158, 0.4);
+    }
+
+    .cake-middle {
+      position: absolute;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 60px;
+      background: linear-gradient(180deg, #fecfef 0%, #fad0c4 100%);
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(255, 154, 158, 0.3);
+    }
+
+    .cake-top {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 50px;
+      background: linear-gradient(180deg, #ff6b8b 0%, #ff9a9e 100%);
+      border-radius: 50% 50% 10px 10px;
+      box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+    }
+
+    .candle {
+      position: absolute;
+      bottom: 165px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 40px;
+      background: linear-gradient(180deg, #ffd700 0%, #ffaa00 100%);
+      border-radius: 3px;
+    }
+
+    .flame {
+      position: absolute;
+      bottom: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 30px;
+      background: radial-gradient(ellipse at bottom, #fff 0%, #ffd700 50%, #ff6b00 100%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: flicker 0.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(-50%) scale(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    .balloons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px;
+      flex-wrap: wrap;
+    }
+
+    .balloon {
+      position: relative;
+      width: 80px;
+      height: 100px;
+      animation: balloonFloat 3s ease-in-out infinite;
+    }
+
+    .balloon:nth-child(2) { animation-delay: 0.5s; }
+    .balloon:nth-child(3) { animation-delay: 1s; }
+    .balloon:nth-child(4) { animation-delay: 1.5s; }
+    .balloon:nth-child(5) { animation-delay: 2s; }
+
+    @keyframes balloonFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    .balloon-body {
+      width: 80px;
+      height: 80px;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      position: relative;
+      box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1);
+    }
+
+    .balloon-body::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 20px;
+      height: 20px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+    }
+
+    .balloon-string {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 30px;
+      background: #888;
+    }
+
+    .balloon-string::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 10px;
+      background: #888;
+      border-radius: 50%;
+    }
+
+    .balloon-1 { background: linear-gradient(135deg, #ff6b8b, #ff9a9e); }
+    .balloon-2 { background: linear-gradient(135deg, #ffd700, #ffec8b); }
+    .balloon-3 { background: linear-gradient(135deg, #98fb98, #90ee90); }
+    .balloon-4 { background: linear-gradient(135deg, #87ceeb, #b0e0e6); }
+    .balloon-5 { background: linear-gradient(135deg, #dda0dd, #ee82ee); }
+
+    .gallery {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .gallery-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      color: #ff6b8b;
+      margin-bottom: 30px;
+    }
+
+    .photos {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .photo-frame {
+      width: 200px;
+      height: 200px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      transform: rotate(var(--rotation));
+      transition: transform 0.3s ease;
+      animation: photoFloat 4s ease-in-out infinite;
+    }
+
+    .photo-frame:nth-child(2) { animation-delay: 0.5s; }
+    .photo-frame:nth-child(3) { animation-delay: 1s; }
+    .photo-frame:nth-child(4) { animation-delay: 1.5s; }
+
+    @keyframes photoFloat {
+      0%, 100% {
+        transform: rotate(var(--rotation)) translateY(0);
+      }
+      50% {
+        transform: rotate(var(--rotation)) translateY(-10px);
+      }
+    }
+
+    .photo-frame:hover {
+      transform: rotate(0deg) scale(1.1);
+      z-index: 10;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .message-section {
+      padding: 60px 20px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .message-card {
+      background: white;
+      border-radius: 30px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(255, 154, 158, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .message-card::before {
+      content: '❤️';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 30px;
+      animation: heartbeat 1s ease-in-out infinite;
+    }
+
+    .message-card::after {
+      content: '❤️';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      animation: heartbeat 1s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .message-text {
+      font-size: 1.3rem;
+      color: #5a4a4a;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    .from {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: #ff6b8b;
+      font-weight: 600;
+    }
+
+    .wish-section {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .make-wish-btn {
+      background: linear-gradient(135deg, #ff6b8b, #ff9a9e);
+      color: white;
+      border: none;
+      padding: 20px 50px;
+      font-size: 1.5rem;
+      font-family: 'Dancing Script', cursive;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255, 107, 139, 0.4);
+      transition: all 0.3s ease;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 10px 30px rgba(255, 107, 139, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 15px 40px rgba(255, 107, 139, 0.6);
+      }
+    }
+
+    .make-wish-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px;
+      color: #8a6a6a;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .photo-frame {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .message-card {
+        padding: 30px 20px;
+      }
+      
+      .message-text {
+        font-size: 1.1rem;
+      }
+    }
+
+    .wish-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .wish-modal.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .wish-content {
+      background: white;
+      padding: 50px;
+      border-radius: 30px;
+      text-align: center;
+      max-width: 500px;
+      animation: popIn 0.5s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); }
+      70% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .wish-content h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      color: #ff6b8b;
+      margin-bottom: 20px;
+    }
+
+    .wish-content p {
+      font-size: 1.2rem;
+      color: #5a4a4a;
+      margin-bottom: 30px;
+    }
+
+    .close-btn {
+      background: #ff6b8b;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .close-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #ffd700;
+      border-radius: 50%;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts-bg" id="heartsBg"></div>
+  <div class="stars" id="stars"></div>
+  <div class="confetti-container" id="confetti"></div>
+
+  <div class="container">
+    <section class="hero">
+      <h1 class="title">Happy Birthday! 🎉</h1>
+      <p class="subtitle">Wishing you an amazing day filled with love, joy & laughter! 💕</p>
+    </section>
+
+    <section class="balloons">
+      <div class="balloon">
+        <div class="balloon-body balloon-1"></div>
+        <div class="balloon-string"></div>
+      </div>
+      <div class="balloon">
+        <div class="balloon-body balloon-2"></div>
+        <div class="balloon-string"></div>
+      </div>
+      <div class="balloon">
+        <div class="balloon-body balloon-3"></div>
+        <div class="balloon-string"></div>
+      </div>
+      <div class="balloon">
+        <div class="balloon-body balloon-4"></div>
+        <div class="balloon-string"></div>
+      </div>
+      <div class="balloon">
+        <div class="balloon-body balloon-5"></div>
+        <div class="balloon-string"></div>
+      </div>
+    </section>
+
+    <section class="cake-section">
+      <div class="cake">
+        <div class="candle"></div>
+        <div class="flame"></div>
+        <div class="cake-top"></div>
+        <div class="cake-middle"></div>
+        <div class="cake-bottom"></div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <h2 class="gallery-title">🎂 Celebration Time! 🎂</h2>
+      <div class="photos">
+        <div class="photo-frame" style="--rotation: -5deg;">
+          <img src="m1.jpg" alt="Memory 1">
+        </div>
+        <div class="photo-frame" style="--rotation: 3deg;">
+          <img src="m2.jpg" alt="Memory 2">
+        </div>
+        <div class="photo-frame" style="--rotation: -3deg;">
+          <img src="m3.jpg" alt="Memory 3">
+        </div>
+        <div class="photo-frame" style="--rotation: 5deg;">
+          <img src="m4.jpg" alt="Memory 4">
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <div class="photos">
+        <div class="photo-frame" style="--rotation: -4deg;">
+          <img src="m5.jpg" alt="Memory 5">
+        </div>
+        <div class="photo-frame" style="--rotation: 2deg;">
+          <img src="m6.jpg" alt="Memory 6">
+        </div>
+        <div class="photo-frame" style="--rotation: -2deg;">
+          <img src="m7.jpg" alt="Memory 7">
+        </div>
+        <div class="photo-frame" style="--rotation: 4deg;">
+          <img src="m8.jpg" alt="Memory 8">
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery">
+      <div class="photos">
+        <div class="photo-frame" style="--rotation: -3deg;">
+          <img src="m9.jpg" alt="Memory 9">
+        </div>
+        <div class="photo-frame" style="--rotation: 5deg;">
+          <img src="m10.jpg" alt="Memory 10">
+        </div>
+        <div class="photo-frame" style="--rotation: -1deg;">
+          <img src="m11.jpg" alt="Memory 11">
+        </div>
+      </div>
+    </section>
+
+    <section class="message-section">
+      <div class="message-card">
+        <p class="message-text">
+          "Happy Birthday to the most amazing friend ever!"🎈<br><br>
+          MUTTT!! INI KADO DARI AKU YAAA HHEEHHE maaf tidak bisa bentuk fisik soalnya....ya tau sendiri ya kita kan sudah berpisah...T--T<br><br>
+          Calicaliku Selamat 16 tahun ya...aduh ga menyangka kamu udah 16 tahun mut..rasanya kamu kayak ga 16 tahun deh..!!hehe,bercanda mut lofyu! Aku doakan di umur kamu yang ke 16 tahun dan seterusnya kamu sehat sellau...panjang umurnya...banyak rezekinya...dan satu yang penting!JANGAN MUSUHIN AKUUUU!!!!!! Pokoknya doa terbaik buat kamu yaa...!! 🥳💖"
+        </p>
+        <p class="from">— With all my love (PIJUL) 💕</p>
+      </div>
+    </section>
+
+    <section class="wish-section">
+      <button class="make-wish-btn" onclick="makeAWish()">
+        ✨ Make a Wish! ✨
+      </button>
+    </section>
+
+    <footer class="footer">
+      <p>Made with 💕 just for you!</p>
+    </footer>
+  </div>
+
+  <div class="wish-modal" id="wishModal">
+    <div class="wish-content">
+      <h2>🎂 Happy Birthday! 🎂</h2>
+      <p>Your wish will come true! 🌟</p>
+      <p>May this year bring you endless happiness, love, and all your heart desires! 💫</p>
+      <button class="close-btn" onclick="closeWish()">Yay! 🎉</button>
+    </div>
+  </div>
+
+  <script>
+    function createHearts() {
+      const container = document.getElementById('heartsBg');
+      const hearts = ['❤️', '💕', '💖', '💗', '💘', '💝'];
+      
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = Math.random() * 100 + '%';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+        container.appendChild(heart);
+      }
+    }
+
+    function createConfetti() {
+      const container = document.getElementById('confetti');
+      const colors = ['#ff6b8b', '#ffd700', '#98fb98', '#87ceeb', '#dda0dd', '#ff9a9e'];
+      
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 5 + 's';
+        confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        container.appendChild(confetti);
+      }
+    }
+
+    function createStars() {
+      const container = document.getElementById('stars');
+      
+      for (let i = 0; i < 30; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.width = (Math.random() * 3 + 2) + 'px';
+        star.style.height = star.style.width;
+        container.appendChild(star);
+      }
+    }
+
+    function makeAWish() {
+      const modal = document.getElementById('wishModal');
+      modal.classList.add('active');
+      
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => {
+          createBurstConfetti();
+        }, i * 100);
+      }
+    }
+
+    function closeWish() {
+      const modal = document.getElementById('wishModal');
+      modal.classList.remove('active');
+    }
+
+    function createBurstConfetti() {
+      const colors = ['#ff6b8b', '#ffd700', '#98fb98', '#87ceeb', '#dda0dd'];
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.left = '50%';
+      confetti.style.top = '50%';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.borderRadius = '50%';
+      confetti.style.zIndex = '2000';
+      confetti.style.transition = 'all 1s ease-out';
+      document.body.appendChild(confetti);
+      
+      setTimeout(() => {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 300 + 200;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+        confetti.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random() * 720}deg)`;
+        confetti.style.opacity = '0';
+      }, 10);
+      
+      setTimeout(() => {
+        confetti.remove();
+      }, 1000);
+    }
+
+    createHearts();
+    createConfetti();
+    createStars();
+
+    document.getElementById('wishModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeWish();
+      }
+    });
+  </script>
+</body>
+</html>
